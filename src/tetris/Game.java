@@ -6,10 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.image.ImageObserver;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -23,10 +20,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class Game implements GameScreen {
     private static final Random random = new Random();
@@ -65,7 +59,7 @@ public class Game implements GameScreen {
 
     public void start() {
         JFrame jFrame = new JFrame();
-        jFrame.setDefaultCloseOperation(3);
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.mapColors();
         this.initialize();
         jFrame.addKeyListener(new GameKeyListener());
@@ -78,12 +72,12 @@ public class Game implements GameScreen {
         jFrame.setVisible(true);
     }
 
-    private JPanel createSwingContent() {
+    protected JPanel createSwingContent() {
         this.createSwingBorderImage();
         this.rootPanel = new GameRootPanel();
-        Dimension prefSize = new Dimension(this.width * cellSize + 250, this.height * cellSize + 110 + 140);
+        Dimension prefSize = new Dimension(this.width * cellSize, this.height * cellSize + 30);
         this.rootPanel.setPreferredSize(prefSize);
-        this.rootPanel.setBorder(BorderFactory.createEmptyBorder(110, 125, 140, 125));
+        this.rootPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
         for(int y = 0; y < this.height; ++y) {
             for(int x = 0; x < this.width; ++x) {
@@ -98,7 +92,6 @@ public class Game implements GameScreen {
                 }
             }
         }
-
         return this.rootPanel;
     }
 
@@ -308,7 +301,7 @@ public class Game implements GameScreen {
     public void setLives(int lives) {
     }
 
-    private void mapColors() {
+    protected void mapColors() {
         this.colorMap.put(Color.NONE, new java.awt.Color(0.0F, 0.0F, 0.0F, 0.0F));
         this.colorMap.put(Color.TRANSPARENT, new java.awt.Color(0.0F, 0.0F, 0.0F, 0.0F));
         this.colorMap.put(Color.ALICEBLUE, new java.awt.Color(0.9411765F, 0.972549F, 1.0F));
@@ -489,8 +482,8 @@ public class Game implements GameScreen {
             g.drawImage(Game.this.backgroundImg, 0, 0, (ImageObserver)null);
             int scoreWidth = (Game.this.width * Game.cellSize - 1) / 2;
             int scoreHeight = 20;
-            int x = Game.this.width * Game.cellSize / 2 + 125 - scoreWidth / 2;
-            int y = Game.this.height * Game.cellSize + 110 + 6;
+            int x = Game.this.width * Game.cellSize / 2 - scoreWidth / 2;
+            int y = Game.this.height * Game.cellSize + 6;
             int fontSize = 16;
             g.setColor(java.awt.Color.WHITE);
             g.setFont(new Font("Verdana", 1, fontSize));

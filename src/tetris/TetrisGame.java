@@ -1,5 +1,9 @@
 package tetris;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+
 public class TetrisGame extends Game {
 
     public static final int WIDTH = 19;
@@ -341,4 +345,115 @@ public class TetrisGame extends Game {
             }
         }
     }
+
+    @Override
+    public void start() {
+        JFrame jFrame = new JFrame();
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.mapColors();
+        this.initialize();
+        jFrame.addKeyListener(new GameKeyListener());
+        jFrame.setTitle("Java Tetris");
+        jFrame.setResizable(false);
+        jFrame.setUndecorated(false);
+        jFrame.getContentPane().add(this.createSwingContent(), "Center");
+
+        JMenuBar jMenuBar = new JMenuBar();
+        JMenu jMenu1 = new JMenu();
+        JMenu jMenu2 = new JMenu();
+        JMenu jMenu3 = new JMenu();
+        JMenu jMenu4 = new JMenu();
+        JMenuItem jMenuItemExit = new JMenuItem();
+        JMenuItem jMenuItemAbout = new JMenuItem();
+
+        jMenuBar.setFocusable(false);
+        //jMenuBar.setPreferredSize(new java.awt.Dimension(300, 21));
+        jMenu1.setText("Файл");
+        jMenu1.setFocusable(false);
+
+        //jMenuItemExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/newcalculator/icons/logout-16.png"))); // NOI18N
+        jMenuItemExit.setText("Выход");
+        jMenuItemExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExitActionPerformed(evt);
+            }
+
+            private void jMenuItemExitActionPerformed(ActionEvent evt) {
+                System.exit(0);
+            }
+        });
+        jMenu1.add(jMenuItemExit);
+
+        jMenuBar.add(jMenu1);
+
+//        jMenu2.setText("Правка");
+//        jMenu2.setFocusable(false);
+//
+//        jMenuItemCopy.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+//        jMenuItemCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/newcalculator/icons/copy.png"))); // NOI18N
+//        jMenuItemCopy.setText("Копировать");
+//        jMenuItemCopy.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jMenuItemCopyActionPerformed(evt);
+//            }
+//        });
+//        jMenu2.add(jMenuItemCopy);
+//
+//        jMenuItemPaste.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+//        jMenuItemPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/newcalculator/icons/paste.png"))); // NOI18N
+//        jMenuItemPaste.setText("Вставить");
+//        jMenuItemPaste.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jMenuItemPasteActionPerformed(evt);
+//            }
+//        });
+//        jMenu2.add(jMenuItemPaste);
+//
+//        jMenuBar.add(jMenu2);
+//
+//        jMenu3.setText("Окно");
+//        jMenu3.setFocusable(false);
+//
+//        jCheckBoxMenuItemProtocol.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+//        jCheckBoxMenuItemProtocol.setText("Протокол");
+//        jCheckBoxMenuItemProtocol.addItemListener(new java.awt.event.ItemListener() {
+//            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+//                jCheckBoxMenuItemProtocolItemStateChanged(evt);
+//            }
+//        });
+//        jMenu3.add(jCheckBoxMenuItemProtocol);
+//
+//        jMenuBar.add(jMenu3);
+
+        jMenu4.setText("Справка");
+        jMenu4.setFocusable(false);
+
+        jMenuItemAbout.setText("О программе");
+        jMenuItemAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAboutActionPerformed(evt);
+            }
+
+            private void jMenuItemAboutActionPerformed(ActionEvent evt) {
+                AboutJFrame aboutJFrame = new AboutJFrame();
+                aboutJFrame.pack();
+                aboutJFrame.setLocationRelativeTo(null);
+                aboutJFrame.setVisible(true);
+            }
+        });
+        jMenu4.add(jMenuItemAbout);
+
+        jMenuBar.add(Box.createHorizontalGlue());
+
+        jMenuBar.add(jMenu4);
+
+        jFrame.setJMenuBar(jMenuBar);
+
+
+        jFrame.pack();
+        jFrame.setLocationRelativeTo((Component)null);
+        jFrame.setVisible(true);
+        System.out.println();
+    }
+
 }
